@@ -32,6 +32,9 @@ Simulated sensors → simulated edge gateway → AWS IoT Core (MQTT)
   → AMA dashboard · collector app · citizen app · open data portal
 ```
 
+Message formats, API endpoints and ML outputs are defined in [docs/data-contract.md](docs/data-contract.md) (draft).
+Visual rules and the alert approval workflow are in [docs/design-brief.md](docs/design-brief.md).
+
 ## Built vs simulated
 | Part | Status |
 |---|---|
