@@ -1,0 +1,39 @@
+# Private project notes (must never be committed)
+CLAUDE.md
+
+# Secrets and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+credentials*
+secrets*
+.aws/
+
+# Databases and data dumps
+*.db
+*.sqlite
+*.sqlite3
+*.dump
+*.sql.gz
+data/raw/
+data/dumps/
+
+# Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Node
+node_modules/
+dist/
+.vite/
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
