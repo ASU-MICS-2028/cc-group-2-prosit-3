@@ -40,11 +40,57 @@ export interface Reading {
 
 export type SuggestionKind = 'flood' | 'waste' | 'air'
 
+export type Severity = Exclude<Status, 'safe' | 'offline'>
+
 export interface Suggestion {
   id: string
   kind: SuggestionKind
   zoneId: ZoneId
   title: string
   evidence: string
-  severity: Exclude<Status, 'safe' | 'offline'>
+  severity: Severity
+  /** The sensor whose reading triggered this suggestion. */
+  triggerSensorId: string
+  value: number
+  limit: number
+  unit: string
+  /** Which model or rule produced it. */
+  source: string
+  /** Minutes since the suggestion was created. */
+  createdMinAgo: number
+}
+
+/* ---------- Approval workflow (design brief §8) ---------- */
+
+export type ReviewState = 'suggested' | 'in-review' | 'edited' | 'waiting-second' | 'sent' | 'rejected' | 'expired'
+
+export type Language = 'en' | 'tw' | 'ga'
+
+export interface AuditEntry {
+  time: string
+  who: string
+  action: string
+  detail?: string
+}
+
+export interface Delivery {
+  total: number
+  delivered: number
+  failed: number
+}
+
+export interface Review {
+  id: string
+  state: ReviewState
+  severity: Severity
+  messages: Record<Language, string>
+  originalMessage: string
+  scope: 'zone' | 'all'
+  channels: { sms: boolean; app: boolean }
+  copyNadmo: boolean
+  rejectReason?: string
+  /** Time (ms) when an unreviewed "act now" suggestion escalates. */
+  expiresAt?: number
+  log: AuditEntry[]
+  delivery?: Delivery
 }

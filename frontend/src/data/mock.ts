@@ -196,10 +196,18 @@ export function suggestionsAt(hour: number): Suggestion[] {
         title: worstDrain.status === 'danger' ? `Flood warning: ${zone.name}` : `Flood watch: ${zone.name}`,
         evidence: `${worstDrain.sensor.id} at ${worstDrain.value}% (limit ${THRESHOLDS.drain.danger}%) · rain ${rainAt(zone.id, hour)} mm/h`,
         severity: worstDrain.status as Suggestion['severity'],
+        triggerSensorId: worstDrain.sensor.id,
+        value: worstDrain.value!,
+        limit: THRESHOLDS.drain.danger,
+        unit: '%',
+        source: 'Flood risk model (placeholder rule)',
+        createdMinAgo: 2,
       })
     }
 
-    const fullBins = inZone.filter((r) => r.sensor.type === 'bin' && r.status === 'danger')
+    const fullBins = inZone
+      .filter((r) => r.sensor.type === 'bin' && r.status === 'danger')
+      .sort((a, b) => b.value! - a.value!)
     if (fullBins.length >= 2) {
       out.push({
         id: `waste-${zone.id}`,
@@ -208,6 +216,12 @@ export function suggestionsAt(hour: number): Suggestion[] {
         title: `Send collection truck early: ${zone.name}`,
         evidence: `${fullBins.length} bins at or above ${THRESHOLDS.bin.danger}% full`,
         severity: fullBins.length >= 4 ? 'danger' : 'watch',
+        triggerSensorId: fullBins[0].sensor.id,
+        value: fullBins[0].value!,
+        limit: THRESHOLDS.bin.danger,
+        unit: '%',
+        source: 'Bin fill rule',
+        createdMinAgo: 6,
       })
     }
 
@@ -220,6 +234,12 @@ export function suggestionsAt(hour: number): Suggestion[] {
         title: `Air quality advisory: ${zone.name}`,
         evidence: `PM2.5 ${worstAir.value} µg/m³ at ${worstAir.sensor.place} (limit ${THRESHOLDS.air.danger})`,
         severity: 'watch',
+        triggerSensorId: worstAir.sensor.id,
+        value: worstAir.value!,
+        limit: THRESHOLDS.air.danger,
+        unit: 'µg/m³',
+        source: 'Air quality rule',
+        createdMinAgo: 4,
       })
     }
   }

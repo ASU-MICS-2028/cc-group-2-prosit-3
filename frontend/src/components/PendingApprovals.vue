@@ -1,32 +1,48 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { CloudRain, Trash2, Wind } from 'lucide'
 import type { Suggestion } from '../types'
 import { iconSvg } from '../lib/icon'
+import { stateOf } from '../stores/approvals'
 import StatusChip from './StatusChip.vue'
 
-/* AI suggestions waiting for a person. The full review screen (design brief §8) comes next. */
-defineProps<{ items: Suggestion[] }>()
+/* AI suggestions waiting for a person. "Review" opens the approval screen (design brief §8). */
+const props = defineProps<{ items: Suggestion[] }>()
+const emit = defineEmits<{ review: [id: string] }>()
 const ICONS = { flood: CloudRain, waste: Trash2, air: Wind }
+
+const STATE_LABEL: Record<string, string> = {
+  'in-review': 'In review',
+  edited: 'Being edited',
+  'waiting-second': 'Needs 2nd officer',
+  expired: 'Escalated',
+  sent: 'Sent',
+  rejected: 'Rejected',
+}
+const waiting = computed(() => props.items.filter((s) => !['sent', 'rejected'].includes(stateOf(s.id))).length)
 </script>
 
 <template>
   <section class="card panel">
     <header>
       <h2 class="title">Pending approvals</h2>
-      <span class="count">{{ items.length }}</span>
+      <span class="count">{{ waiting }}</span>
     </header>
     <p v-if="!items.length" class="label empty">Nothing waiting. All readings are within limits.</p>
     <ul v-else>
-      <li v-for="s in items" :key="s.id">
+      <li v-for="s in items" :key="s.id" :data-state="stateOf(s.id)">
         <span class="ic" :data-sev="s.severity" v-html="iconSvg(ICONS[s.kind], 16)" />
         <div class="body">
           <div class="row">
             <span class="t">{{ s.title }}</span>
             <StatusChip :status="s.severity" />
+            <span v-if="STATE_LABEL[stateOf(s.id)]" class="state">{{ STATE_LABEL[stateOf(s.id)] }}</span>
           </div>
           <p class="label">{{ s.evidence }}</p>
         </div>
-        <button class="review" disabled title="The review screen is the next thing to build">Review</button>
+        <button class="review" @click="emit('review', s.id)">
+          {{ ['sent', 'rejected'].includes(stateOf(s.id)) ? 'View' : 'Review' }}
+        </button>
       </li>
     </ul>
   </section>
@@ -67,6 +83,10 @@ li {
   border-radius: var(--r-card);
   background: var(--canvas);
 }
+li[data-state='sent'],
+li[data-state='rejected'] {
+  opacity: 0.6;
+}
 .ic {
   width: 32px;
   height: 32px;
@@ -98,6 +118,12 @@ li {
 .t {
   font-weight: 500;
 }
+.state {
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--ink-muted);
+}
 .review {
   border: 0;
   background: var(--ink);
@@ -105,9 +131,11 @@ li {
   border-radius: var(--r-pill);
   padding: 6px 14px;
 }
-.review:disabled {
-  opacity: 0.35;
-  cursor: not-allowed;
+li[data-state='sent'] .review,
+li[data-state='rejected'] .review {
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 0 0 0 1px var(--line);
 }
 .empty {
   padding: var(--s3) 0;
