@@ -1,0 +1,42 @@
+/*
+ * Design tokens from docs/design-brief.md.
+ * Change a colour here and it changes everywhere.
+ */
+:root {
+  /* Base (neutral) */
+  --canvas: #f2f2f0;
+  --surface: #ffffff;
+  --ink: #111111;
+  --ink-muted: #6b6b68;
+  --line: #e5e5e1;
+  --water: #6e97bf;
+
+  /* Status: the only loud colours */
+  --safe: #2f9e55;
+  --watch: #d9901a;
+  --danger: #c9482d;
+  --offline: #a3a3a0;
+
+  --safe-tint: rgb(47 158 85 / 0.1);
+  --watch-tint: rgb(217 144 26 / 0.12);
+  --danger-tint: rgb(201 72 45 / 0.1);
+  --offline-tint: rgb(163 163 160 / 0.15);
+
+  /* Type */
+  --font-sans: 'Geist Sans', system-ui, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, monospace;
+
+  /* Spacing scale: 4, 8, 12, 16, 24, 32, 48 */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s5: 24px;
+  --s6: 32px;
+  --s7: 48px;
+
+  /* Corners */
+  --r-panel: 20px;
+  --r-card: 12px;
+  --r-pill: 999px;
+}
