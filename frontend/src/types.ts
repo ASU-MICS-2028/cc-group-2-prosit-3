@@ -79,9 +79,17 @@ export interface Delivery {
   failed: number
 }
 
+export type Role = 'ama' | 'nadmo' | 'collector' | 'citizen'
+
 export interface Review {
   id: string
+  title: string
+  kind: SuggestionKind
+  zoneId: ZoneId
   state: ReviewState
+  /** Time NADMO acknowledged the alert, e.g. "16:42". */
+  acknowledgedAt?: string
+  sentAt?: string
   severity: Severity
   messages: Record<Language, string>
   originalMessage: string

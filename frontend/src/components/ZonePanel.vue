@@ -10,7 +10,8 @@ import StatusChip from './StatusChip.vue'
 import Gauge from './Gauge.vue'
 
 const zoneId = defineModel<ZoneId>('zone', { required: true })
-const props = defineProps<{ hour: number }>()
+/* floodOnly: NADMO's view (brief §7.3) shows drains and rain only, no waste or air. */
+const props = defineProps<{ hour: number; floodOnly?: boolean }>()
 
 const zone = computed(() => ZONES.find((z) => z.id === zoneId.value)!)
 const inZone = computed(() => readingsAt(props.hour).filter((r) => r.sensor.zoneId === zoneId.value))
@@ -155,7 +156,7 @@ const airOption = computed(() => {
     <hr class="divider" />
 
     <!-- Gauges -->
-    <section class="gauges">
+    <section class="gauges" :class="{ single: floodOnly }">
       <div class="gauge-cell">
         <p class="label">Highest drain level</p>
         <Gauge
@@ -166,7 +167,7 @@ const airOption = computed(() => {
         />
         <p class="label sub">{{ worstDrain?.sensor.place ?? 'No data' }}</p>
       </div>
-      <div class="gauge-cell">
+      <div v-if="!floodOnly" class="gauge-cell">
         <p class="label">Average bin fill</p>
         <Gauge :value="avgBin" :limit="THRESHOLDS.bin.danger" unit="%" :status="statusFor('bin', avgBin)" />
         <p class="label sub">
@@ -196,10 +197,10 @@ const airOption = computed(() => {
       <VChart class="chart" :option="rainOption" autoresize />
     </section>
 
-    <hr class="divider" />
+    <hr v-if="!floodOnly" class="divider" />
 
     <!-- Air -->
-    <section class="block">
+    <section v-if="!floodOnly" class="block">
       <div class="stats">
         <div>
           <p class="label">PM2.5 now (worst sensor)</p>
@@ -257,6 +258,9 @@ const airOption = computed(() => {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--s4);
+}
+.gauges.single {
+  grid-template-columns: 1fr;
 }
 .gauge-cell {
   display: flex;

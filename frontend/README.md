@@ -13,6 +13,20 @@ npm run build      # type-check + production build
 ```
 Add `?hour=16` to the URL to open the dashboard at the storm peak.
 Click **Review** on a pending approval to open the approval screen (`#/review/<id>`).
+
+### Roles (use "View as" in the header, demo only)
+| Address | Role | What it shows |
+|---|---|---|
+| `#/` | AMA officer | Full dashboard, pending approvals, review screen |
+| `#/nadmo` | NADMO | Flood data only; flood alerts AMA sent or that escalated; Acknowledge (no approve/send) |
+| `#/collector` | Waste collector (phone) | Bins in Makola only, AMA tasks, Mark as emptied, map, history |
+| `#/citizen` | Citizen (phone) | Zone status in plain words, alerts, anonymous problem reports, report tracking |
+
+The role switcher is a **demo tool**. Hiding things in the browser is not security: in the real
+system each person logs in and the backend only sends data their role is allowed to see.
+
+Demo story: AMA approves the Makola flood alert and the bin task → NADMO acknowledges →
+the collector sees the task → the citizen sees the alert and reports a blocked drain.
 Approvals, delivery counts and the audit log are **simulated** and reset when the page reloads.
 
 ## Data
@@ -31,6 +45,9 @@ src/
     TimelineBar.vue       Live / Replay, hour scrubber
     CityMap.vue           Leaflet map, pilot zones, sensors, risk circles, legend, layers
     PendingApprovals.vue  AI suggestions waiting for an officer ("Review" opens the review screen)
+    FloodAlerts.vue       NADMO's alert list with Acknowledge
+    RoleSwitcher.vue      demo-only "View as" switch
+    phone/                PhoneShell, BottomNav, CollectorApp, CitizenApp, BinMap
     review/
       ReviewScreen.vue    approval workflow (brief §8): steps, countdown, actions, dialogs, audit log
       ReviewEvidence.vue  trigger reading vs limit, 24 h chart, nearby sensors, confidence
@@ -43,6 +60,7 @@ src/
   data/mock.ts            simulated readings (replace with API calls later)
   data/messages.ts        draft alert text and recipient counts (mock)
   stores/approvals.ts     approval state + audit log (browser only; moves to the backend later)
+  stores/field.ts         emptied bins and citizen reports (browser only)
   lib/                    status thresholds, icons, chart setup
   styles/                 design tokens and base styles
 ```

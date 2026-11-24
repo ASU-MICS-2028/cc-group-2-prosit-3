@@ -2,13 +2,22 @@
 import { computed } from 'vue'
 import { Bell, RefreshCw, History } from 'lucide'
 import { iconSvg } from '../lib/icon'
+import type { Role } from '../types'
+import RoleSwitcher from './RoleSwitcher.vue'
 
 const props = defineProps<{
   live: boolean
   hour: number
   minutesSinceSync: number
   pendingCount: number
+  role: Role
 }>()
+
+const USER: Record<'ama' | 'nadmo', { initials: string; name: string; scope: string; sub: string; bell: string }> = {
+  ama: { initials: 'AO', name: 'AMA Officer', scope: 'All zones', sub: 'AMA operations', bell: 'alerts waiting for approval' },
+  nadmo: { initials: 'NO', name: 'NADMO Officer', scope: 'Flood alerts only', sub: 'NADMO flood view', bell: 'flood alerts not yet acknowledged' },
+}
+const user = computed(() => USER[props.role === 'nadmo' ? 'nadmo' : 'ama'])
 
 const freshness = computed(() => {
   if (!props.live) return { text: `Replaying ${String(props.hour).padStart(2, '0')}:00`, state: 'replay' }
@@ -30,25 +39,26 @@ const freshness = computed(() => {
       </svg>
       <div>
         <h1>SmartCity Accra</h1>
-        <p class="label">AMA operations</p>
+        <p class="label">{{ user.sub }}</p>
       </div>
     </div>
 
     <div class="right">
+      <RoleSwitcher :role="role" />
       <span class="tag sim" title="All sensor data is simulated. See README.">Simulated data</span>
       <span class="tag fresh" :data-state="freshness.state">
         <span v-html="iconSvg(live ? RefreshCw : History, 14)" />
         {{ freshness.text }}
       </span>
-      <button class="bell" :aria-label="`${pendingCount} alerts waiting for approval`">
+      <button class="bell" :aria-label="`${pendingCount} ${user.bell}`">
         <span v-html="iconSvg(Bell, 18)" />
         <span v-if="pendingCount" class="badge">{{ pendingCount }}</span>
       </button>
       <div class="user">
-        <span class="avatar" aria-hidden="true">AO</span>
+        <span class="avatar" aria-hidden="true">{{ user.initials }}</span>
         <div>
-          <div>AMA Officer</div>
-          <div class="label">All zones</div>
+          <div>{{ user.name }}</div>
+          <div class="label">{{ user.scope }}</div>
         </div>
       </div>
     </div>

@@ -27,6 +27,9 @@ export function reviewFor(s: Suggestion): Review {
     const text = draftMessage(s)
     reviews[s.id] = {
       id: s.id,
+      title: s.title,
+      kind: s.kind,
+      zoneId: s.zoneId,
       state: 'suggested',
       severity: s.severity,
       messages: { en: text, tw: '', ga: '' },
@@ -41,6 +44,22 @@ export function reviewFor(s: Suggestion): Review {
     }
   }
   return reviews[s.id]
+}
+
+/** Every review so far (used by the NADMO view and the phone apps). */
+export const allReviews = () => Object.values(reviews)
+
+/** Does a sent alert reach this zone? (Its own zone, or "all pilot zones".) */
+export const reaches = (r: Review, zoneId: string) => r.scope === 'all' || r.zoneId === zoneId
+
+/** Flood alerts NADMO may see: ones copied to NADMO when sent, and escalated ones. */
+export const nadmoAlerts = () =>
+  allReviews().filter((r) => r.kind === 'flood' && ((r.state === 'sent' && r.copyNadmo) || r.state === 'expired'))
+
+export function acknowledge(r: Review) {
+  if (r.acknowledgedAt) return
+  r.acknowledgedAt = clock()
+  log(r, 'NADMO Officer', 'Acknowledged', 'NADMO has seen this alert')
 }
 
 export function isDecided(id: string): boolean {
@@ -118,6 +137,7 @@ function send(r: Review, s: Suggestion) {
   const total = audienceFor(s, r.scope).count
   const channels = [r.channels.sms && 'SMS', r.channels.app && 'app'].filter(Boolean).join(' + ')
   r.state = 'sent'
+  r.sentAt = clock()
   r.delivery = { total, delivered: 0, failed: 0 }
   log(r, 'System', 'Sent', `${total.toLocaleString()} recipients by ${channels}${r.copyNadmo ? ' · NADMO copied' : ''}`)
 

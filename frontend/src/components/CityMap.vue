@@ -9,8 +9,9 @@ import { iconSvg } from '../lib/icon'
 
 export type Layer = 'all' | SensorType
 
-const props = defineProps<{ hour: number; zone: ZoneId }>()
-const layer = ref<Layer>('all')
+/* lockedLayer: show only one sensor type and hide the layer switch (NADMO sees drains only). */
+const props = defineProps<{ hour: number; zone: ZoneId; lockedLayer?: SensorType }>()
+const layer = ref<Layer>(props.lockedLayer ?? 'all')
 
 const LAYERS: { id: Layer; label: string }[] = [
   { id: 'all', label: 'All' },
@@ -158,15 +159,15 @@ function showAll() {
       <p class="label">Sensors</p>
       <ul>
         <li><span class="ic" v-html="iconSvg(Waves, 14)" /> Drain level</li>
-        <li><span class="ic" v-html="iconSvg(Trash2, 14)" /> Bin fill</li>
-        <li><span class="ic" v-html="iconSvg(Wind, 14)" /> Air (PM2.5)</li>
+        <li v-if="!lockedLayer"><span class="ic" v-html="iconSvg(Trash2, 14)" /> Bin fill</li>
+        <li v-if="!lockedLayer"><span class="ic" v-html="iconSvg(Wind, 14)" /> Air (PM2.5)</li>
       </ul>
     </div>
 
     <!-- Layer switch (bottom-right) -->
     <div class="overlay layers">
       <button class="link" @click="showAll">Both zones</button>
-      <div class="segmented" role="group" aria-label="Map layer">
+      <div v-if="!lockedLayer" class="segmented" role="group" aria-label="Map layer">
         <button v-for="l in LAYERS" :key="l.id" :aria-pressed="layer === l.id" @click="layer = l.id">
           {{ l.label }}
         </button>
