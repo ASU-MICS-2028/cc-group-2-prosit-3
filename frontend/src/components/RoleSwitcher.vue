@@ -13,6 +13,7 @@ const ROLES: { id: Role; label: string; hash: string }[] = [
   { id: 'nadmo', label: 'NADMO', hash: '#/nadmo' },
   { id: 'collector', label: 'Collector', hash: '#/collector' },
   { id: 'citizen', label: 'Citizen', hash: '#/citizen' },
+  { id: 'admin', label: 'Admin', hash: '#/admin' },
 ]
 </script>
 

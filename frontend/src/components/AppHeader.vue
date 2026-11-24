@@ -13,11 +13,12 @@ const props = defineProps<{
   role: Role
 }>()
 
-const USER: Record<'ama' | 'nadmo', { initials: string; name: string; scope: string; sub: string; bell: string }> = {
+const USER: Record<'ama' | 'nadmo' | 'admin', { initials: string; name: string; scope: string; sub: string; bell: string }> = {
   ama: { initials: 'AO', name: 'AMA Officer', scope: 'All zones', sub: 'AMA operations', bell: 'alerts waiting for approval' },
   nadmo: { initials: 'NO', name: 'NADMO Officer', scope: 'Flood alerts only', sub: 'NADMO flood view', bell: 'flood alerts not yet acknowledged' },
+  admin: { initials: 'SA', name: 'System Admin', scope: 'Users and sensors', sub: 'Administration', bell: 'sensors that need attention' },
 }
-const user = computed(() => USER[props.role === 'nadmo' ? 'nadmo' : 'ama'])
+const user = computed(() => USER[props.role === 'nadmo' || props.role === 'admin' ? props.role : 'ama'])
 
 const freshness = computed(() => {
   if (!props.live) return { text: `Replaying ${String(props.hour).padStart(2, '0')}:00`, state: 'replay' }

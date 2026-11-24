@@ -132,12 +132,12 @@ function binFill(s: Sensor, hour: number): number {
   return clamp(s.base + s.factor * hoursSinceCollection + 1.5 * noise(s.id, hour), 0, 100)
 }
 
-/** PM2.5: traffic peaks at 08:00 and 19:00; rain washes it down. */
+/** PM2.5: traffic peaks at 08:00 and 19:00; heavy rain washes out up to half of it. */
 function pm25(s: Sensor, hour: number): number {
   const h = wrap(hour)
   const traffic = 16 * gauss(h, 8, 1.4) + 22 * gauss(h, 19, 1.6)
-  const washout = 0.6 * rainAt(s.zoneId, hour)
-  return clamp(s.base + traffic - washout + 3 * noise(s.id, hour), 4, 500)
+  const washout = Math.min(0.5, rainAt(s.zoneId, hour) / 60)
+  return clamp((s.base + traffic) * (1 - washout) + 3 * noise(s.id, hour), 8, 500)
 }
 
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v))

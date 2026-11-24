@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import type { Role, ZoneId } from './types'
-import { suggestionsAt } from './data/mock'
+import { SENSORS, isLowBattery, isOffline, suggestionsAt } from './data/mock'
 import AppHeader from './components/AppHeader.vue'
 import ZonePanel from './components/ZonePanel.vue'
 import TimelineBar from './components/TimelineBar.vue'
@@ -14,6 +14,7 @@ import ReviewScreen from './components/review/ReviewScreen.vue'
 import PhoneShell from './components/phone/PhoneShell.vue'
 import CollectorApp from './components/phone/CollectorApp.vue'
 import CitizenApp from './components/phone/CitizenApp.vue'
+import AdminView from './components/admin/AdminView.vue'
 import { isDecided, nadmoAlerts } from './stores/approvals'
 
 /* ---------- Time (shared by every role) ---------- */
@@ -52,6 +53,7 @@ const role = computed<Role>(() => {
   if (hash.value.startsWith('#/nadmo')) return 'nadmo'
   if (hash.value.startsWith('#/collector')) return 'collector'
   if (hash.value.startsWith('#/citizen')) return 'citizen'
+  if (hash.value.startsWith('#/admin')) return 'admin'
   return 'ama'
 })
 const reviewId = computed(() => hash.value.match(/^#\/review\/(.+)$/)?.[1])
@@ -63,11 +65,11 @@ const reviewing = computed(() => suggestions.value.find((s) => s.id === reviewId
 const openReview = (id: string) => (location.hash = `#/review/${id}`)
 const backToDashboard = () => (location.hash = '#/')
 
-const bellCount = computed(() =>
-  role.value === 'nadmo'
-    ? nadmoAlerts().filter((a) => !a.acknowledgedAt).length
-    : suggestions.value.filter((s) => !isDecided(s.id)).length,
-)
+const bellCount = computed(() => {
+  if (role.value === 'nadmo') return nadmoAlerts().filter((a) => !a.acknowledgedAt).length
+  if (role.value === 'admin') return SENSORS.filter((s) => isOffline(s) || isLowBattery(s)).length
+  return suggestions.value.filter((s) => !isDecided(s.id)).length
+})
 </script>
 
 <template>
@@ -88,7 +90,7 @@ const bellCount = computed(() =>
   </PhoneShell>
 
   <!-- Desktop: AMA dashboard, review screen, NADMO view -->
-  <div v-else class="app" :class="{ 'is-review': reviewId }">
+  <div v-else class="app" :class="{ 'is-review': reviewId || role === 'admin' }">
     <AppHeader
       class="area-header"
       :role="role"
@@ -98,7 +100,9 @@ const bellCount = computed(() =>
       :pending-count="bellCount"
     />
 
-    <template v-if="reviewId">
+    <AdminView v-if="role === 'admin'" class="area-review" :hour="hour" />
+
+    <template v-else-if="reviewId">
       <ReviewScreen
         v-if="reviewing"
         :key="reviewing.id"

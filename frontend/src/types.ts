@@ -79,7 +79,7 @@ export interface Delivery {
   failed: number
 }
 
-export type Role = 'ama' | 'nadmo' | 'collector' | 'citizen'
+export type Role = 'ama' | 'nadmo' | 'collector' | 'citizen' | 'admin'
 
 export interface Review {
   id: string
