@@ -58,7 +58,7 @@ These need approval on the review screen ([design brief §8](design-brief.md#8-a
 |---|---|
 | en | `AMA FLOOD ALERT: High flood risk in {zone} now. Drains are nearly full. Avoid low roads and drains. Move goods off the ground.` |
 | tw *(draft)* | `AMA NSUYIRI KOKOBƆ: Nsuyiri asiane kɛse wɔ {zone} seesei. Nsukwan no aka kakra ma. Mfa akwan a ɛda fam ne nsukwan ho. Yi w'adeɛ fi fam.` |
-| ga | *To be written* |
+| ga *(draft)* | `AMA NU AŊFƆ HE KƆKƆBƆ: Nu afua he oshara ni yɔɔ {zone} bianɛ. Shwɛ fioo ni nu tsɔji lɛ ayi obɔ. Tsi ohe kɛjɛ gbɛjegbɛi ni yɔɔ shishigbɛ kɛ nu homɔi ahe. Tsi nibii kɛjɛ shikpɔŋ lɛ nɔ.` |
 
 ### 4.2 Flood watch (`kind: flood`, `severity: watch`)
 
@@ -66,7 +66,7 @@ These need approval on the review screen ([design brief §8](design-brief.md#8-a
 |---|---|
 | en | `AMA FLOOD WATCH: Drains in {zone} are rising after heavy rain. Avoid walking near drains. We will update you.` |
 | tw *(draft)* | `AMA NSUYIRI HWƐ YIE: Nsu rekɔ soro wɔ {zone} nsukwan mu esiane osu kɛse. Nnantew mmɛn nsukwan. Yɛbɛka nsɛm foforɔ akyerɛ wo.` |
-| ga | *To be written* |
+| ga *(draft)* | `AMA NU AFƆ KWƐMƆ: Nu ni hoɔ yɛ {zone} lɛ miiya hiɛ yɛ nugbɔ ni nɛ waa sɛɛ. Tsi ohe kɛjɛ nyiɛmɔ he ni bɛŋkɛ nu tsɔji. Wɔbaahã bo saji heei.` |
 
 ### 4.3 Flood all clear (new)
 
@@ -74,7 +74,7 @@ These need approval on the review screen ([design brief §8](design-brief.md#8-a
 |---|---|
 | en | `AMA FLOOD UPDATE: Flood risk in {zone} is now low. Take care on roads that were flooded. Report blocked drains in the app.` |
 | tw *(draft)* | `AMA NSUYIRI NSƐM: Nsuyiri asiane wɔ {zone} so atew seesei. Hwɛ yie wɔ akwan a nsu faa so no. Bɔ nsukwan a asiw ho amanneɛ wɔ app no so.` |
-| ga | *To be written* |
+| ga *(draft)* | `AMA NU AFO HE SAJI: Nu afua he oshara ni yɔɔ {zone} lɛ eba shi bianɛ. Kwɛmɔ gbɛjegbɛi ni nu eyi nɔ lɛ jogbaŋŋ. Amaniɛbɔɔ ni atsĩ naa yɛ app lɛ mli.` |
 
 ### 4.4 Air advisory (`kind: air`)
 
@@ -82,7 +82,7 @@ These need approval on the review screen ([design brief §8](design-brief.md#8-a
 |---|---|
 | en | `AMA AIR ADVISORY: Air in {zone} is unhealthy (PM2.5 {value}). Limit time outdoors, do not burn waste, wear a mask if you can.` |
 | tw *(draft)* | `AMA MFRAMA HO KOKOBƆ: Mframa a ɛwɔ {zone} nye mma apɔmuden (PM2.5 {value}). Ntena abɔnten nkyɛ, nhyew nwura, fa mask hyɛ sɛ wobetumi a.` |
-| ga | *To be written* |
+| ga *(draft)* | `AMA KƆYƆ HE GBƆMƆ: Kɔɔyɔɔ ni yɔɔ {zone} lɛ nɔ lɛ ehiii (PM2.5 {value}). Tsɔɔmɔ be ni okɛbaatsu nii yɛ kpo nɔ lɛ, kaashã jwɛi, wo mask kɛji obaanyɛ.` |
 
 ### 4.5 Air all clear (new)
 
@@ -90,7 +90,7 @@ These need approval on the review screen ([design brief §8](design-brief.md#8-a
 |---|---|
 | en | `AMA AIR UPDATE: Air in {zone} is better now. Please keep from burning waste. Report burning in the app.` |
 | tw *(draft)* | `AMA MFRAMA NSƐM: Mframa a ɛwɔ {zone} ayɛ yie seesei. Yɛsrɛ wo, nhyew nwura. Bɔ nwura hyew ho amanneɛ wɔ app no so.` |
-| ga | *To be written* |
+| ga *(draft)* | `AMA KƆƆ SHIHILƐI: Kɔɔyɔɔ ni yɔɔ {zone} lɛ hi fe tsutsu lɛ. Ofainɛ, kaaashã jwɛi. Abɔ jwɛi mli latsaa he amaniɛ yɛ app lɛ nɔ.` |
 
 ## 5. Collector tasks (app, SMS backup)
 
@@ -102,7 +102,7 @@ These go to waste collectors in their own zone only. They are not public, but th
 |---|---|
 | en | `AMA TASK: {evidence} in {zone}. Please collect before {time}. Route is in the app.` |
 | tw *(draft)* | `AMA ADWUMA: {evidence} wɔ {zone}. Yɛsrɛ wo, yi nwura no ansa na {time} adu. Kwan no wɔ app no mu.` |
-| ga | *To be written* |
+| ga *(draft)* | `AMA NITSUMƆ: {evidence} yɛ {zone} nɔ. Ofainɛ jiemɔ jwɛi lɛ dani {time}. Gbɛ lɛ yɛ app lɛ mli.` |
 
 **Question for the team:** do collectors want Twi/Ga, or is English fine for task messages? We should ask the collector teams instead of guessing.
 
@@ -110,11 +110,11 @@ These go to waste collectors in their own zone only. They are not public, but th
 
 These are not reviewed, because they only confirm the citizen's own report. They are shown in the app, so length and the ɛ/ɔ letters don't matter here.
 
-| Status | en | tw *(draft)* | ga |
+| Status | en | tw *(draft)* | ga *(draft)* |
 |---|---|---|---|
-| `received` | `Thank you. We got your report {ref}. An AMA officer will look at it.` | `Yɛda wo ase. Yɛanya wo amanneɛbɔ {ref}. AMA panin bi bɛhwɛ so.` | *To be written* |
-| `assigned` | `Report {ref}: a team has been sent to fix it.` | `Amanneɛbɔ {ref}: yɛasoma kuw bi sɛ wɔnkɔsiesie.` | *To be written* |
-| `fixed` | `Report {ref}: this problem is marked as fixed. Thank you for helping keep {zone} clean.` | `Amanneɛbɔ {ref}: yɛasiesie ɔhaw yi. Yɛda wo ase sɛ woboa ma {zone} ho te.` | *To be written* |
+| `received` | `Thank you. We got your report {ref}. An AMA officer will look at it.` | `Yɛda wo ase. Yɛanya wo amanneɛbɔ {ref}. AMA panin bi bɛhwɛ so.` | `Oyiwaladɔŋŋ. Wɔ na o amaniɛbɔɔ {ref}. AMA nitsulɔ ko baakwɛ mli.` |
+| `assigned` | `Report {ref}: a team has been sent to fix it.` | `Amanneɛbɔ {ref}: yɛasoma kuw bi sɛ wɔnkɔsiesie.` | `Amaniɛbɔɔ {ref}: atsu kuu ko koni amɛbasaa.` |
+| `fixed` | `Report {ref}: this problem is marked as fixed. Thank you for helping keep {zone} clean.` | `Amanneɛbɔ {ref}: yɛasiesie ɔhaw yi. Yɛda wo ase sɛ woboa ma {zone} ho te.` | `Amaniɛbɔɔ {ref}: akadi naagba nɛɛ akɛ asaa. Oyiwaladɔŋŋ akɛ oye obua ni {zone} lɛ he atse.` |
 
 ## 7. Review and sign-off
 
@@ -130,7 +130,7 @@ Reviewers are recorded by **role only** (the repo is public).
 |---|---|---|---|
 | English | Team | | Draft |
 | Twi | *Native Twi speaker, to be found* | | Draft, not checked |
-| Ga | *Native Ga speaker, ideally a Makola trader* | | Not started |
+| Ga | *Native Ga speaker, ideally a Makola trader* | | Draft, not checked |
 
 ## 8. Glossary for translators
 
@@ -138,14 +138,14 @@ Please use the same word for each term in every template.
 
 | English | Twi (draft) | Ga |
 |---|---|---|
-| Flood | nsuyiri | |
-| Drain / gutter | nsukwan | |
-| Alert / warning | kokobɔ | |
-| Watch / be careful | hwɛ yie | |
-| Update / news | nsɛm | |
-| Air | mframa | |
-| Waste / rubbish | nwura | |
-| Burn | hyew | |
-| Report (noun) | amanneɛbɔ | |
-| Task / work | adwuma | |
-| Risk / danger | asiane | |
+| Flood | nsuyiri | Nu afua |
+| Drain / gutter | nsukwan | Tsɔ |
+| Alert / warning | kokobɔ | Hɛlemɔ |
+| Watch / be careful | hwɛ yie | Kwɛmɔ / kwɛmɔ ohe jogbaŋŋ |
+| Update / news | nsɛm | Tsakemɔ |
+| Air | mframa | Kɔɔyɔŋ |
+| Waste / rubbish | nwura | Jwɛɛ |
+| Burn | hyew | Shaaŋ |
+| Report (noun) | amanneɛbɔ | Nókó he sane |
+| Task / work | adwuma | Nifeemɔ |
+| Risk / danger | asiane | Oshra |
