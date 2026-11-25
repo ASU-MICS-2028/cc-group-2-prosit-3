@@ -4,7 +4,7 @@
 **Owner:** Isaac (community, ethics and documentation).
 **Purpose:** fix the wording of every alert we send by SMS and in the app, so that a person can check it, it fits in one SMS, and it reads naturally to residents and traders in East Legon and Makola.
 
-> **Translation warning.** The Twi lines below are **first drafts only**. A native Twi speaker must check them before we use them. The Ga lines are **not written yet**. We need a native Ga speaker, ideally from the Makola trading community. Until a line is signed off in [section 7](#7-review-and-sign-off), the review screen must show the English text only.
+> **Translation warning.** The Twi lines below are **first drafts only**. A native Twi speaker must check them before we use them. The Ga lines are also **drafts** and need checking by a second native Ga speaker, ideally from the Makola trading community. Until a line is signed off in [section 7](#7-review-and-sign-off), the review screen must show the English text only.
 
 ---
 
@@ -30,9 +30,11 @@ So a 150-character Twi alert costs **1 SMS** without ɛ/ɔ but **3 SMS** with th
 | Channel | Spelling | Why |
 |---|---|---|
 | App (citizen app, alerts list) | Correct spelling with ɛ and ɔ | No length limit; respects the language |
-| SMS | ASCII form: ɛ → `e`, ɔ → `o` | Fits in one 160-character SMS. Many Ghanaians already text Twi this way. |
+| SMS | ASCII form: ɛ → `e`, ɔ → `o`, ŋ → `ng`, and accents removed (ã → `a`, ĩ → `i`) | Fits in one 160-character SMS. Many Ghanaians already text Twi and Ga this way. |
 
-The native-speaker reviewer should confirm the ASCII form is still easy to read.
+The native-speaker reviewer should confirm the ASCII form is still easy to read. Ga also uses ŋ and nasal accents (ã, ĩ), which are not in GSM-7 either.
+
+**Length check (with "Makola Market"):** every English and Twi SMS template fits in 160 characters in ASCII form. In Ga, **4.1 Flood alert is 191 characters** (2 SMS parts) and needs shortening. The other Ga templates fit.
 
 **Note for Henry:** `smsParts()` in `frontend/src/data/messages.ts` always counts 160/153. It should count 70/67 when the text contains any character outside GSM-7.
 
@@ -122,7 +124,8 @@ A line counts as ready only when a native speaker has checked it. The reviewer c
 - means the same as the English,
 - sounds natural, not like a word-for-word translation,
 - is clear to someone with little schooling,
-- is still readable in the ASCII SMS form (ɛ → e, ɔ → o).
+- is still readable in the ASCII SMS form (ɛ → e, ɔ → o, ŋ → ng, no accents),
+- fits in **160 characters** in the ASCII form, with "Makola Market" as the zone.
 
 Reviewers are recorded by **role only** (the repo is public).
 
