@@ -34,7 +34,7 @@ So a 150-character Twi alert costs **1 SMS** without ɛ/ɔ but **3 SMS** with th
 
 The native-speaker reviewer should confirm the ASCII form is still easy to read. Ga also uses ŋ and nasal accents (ã, ĩ), which are not in GSM-7 either.
 
-**Length check (with "Makola Market"):** every English and Twi SMS template fits in 160 characters in ASCII form. In Ga, **4.1 Flood alert is 191 characters** (2 SMS parts) and needs shortening. The other Ga templates fit.
+**Length check (with "Makola Market"):** every English and Twi SMS template fits in 160 characters in ASCII form. In Ga, **4.1 Flood alert is 187 characters** (2 SMS parts) and needs shortening. The other Ga templates fit.
 
 **Note for Henry:** `smsParts()` in `frontend/src/data/messages.ts` always counts 160/153. It should count 70/67 when the text contains any character outside GSM-7.
 
@@ -60,7 +60,7 @@ These need approval on the review screen ([design brief §8](design-brief.md#8-a
 |---|---|
 | en | `AMA FLOOD ALERT: High flood risk in {zone} now. Drains are nearly full. Avoid low roads and drains. Move goods off the ground.` |
 | tw *(draft)* | `AMA NSUYIRI KOKOBƆ: Nsuyiri asiane kɛse wɔ {zone} seesei. Nsukwan no aka kakra ma. Mfa akwan a ɛda fam ne nsukwan ho. Yi w'adeɛ fi fam.` |
-| ga *(draft)* | `AMA NU AŊFƆ HE KƆKƆBƆ: Nu afua he oshara ni yɔɔ {zone} bianɛ. Shwɛ fioo ni nu tsɔji lɛ ayi obɔ. Tsi ohe kɛjɛ gbɛjegbɛi ni yɔɔ shishigbɛ kɛ nu homɔi ahe. Tsi nibii kɛjɛ shikpɔŋ lɛ nɔ.` |
+| ga *(draft)* | `AMA NU AFƆ HE GBƆMƆ: Nu afɔ he oshara ni yɔɔ {zone} bianɛ. Shwɛ fioo ni nu tsɔji lɛ ayi obɔ. Tsi ohe kɛjɛ gbɛjegbɛi ni yɔɔ shishigbɛ kɛ nu homɔi ahe. Tsi nibii kɛjɛ shikpɔŋ lɛ nɔ.` |
 
 ### 4.2 Flood watch (`kind: flood`, `severity: watch`)
 
@@ -76,7 +76,7 @@ These need approval on the review screen ([design brief §8](design-brief.md#8-a
 |---|---|
 | en | `AMA FLOOD UPDATE: Flood risk in {zone} is now low. Take care on roads that were flooded. Report blocked drains in the app.` |
 | tw *(draft)* | `AMA NSUYIRI NSƐM: Nsuyiri asiane wɔ {zone} so atew seesei. Hwɛ yie wɔ akwan a nsu faa so no. Bɔ nsukwan a asiw ho amanneɛ wɔ app no so.` |
-| ga *(draft)* | `AMA NU AFO HE SAJI: Nu afua he oshara ni yɔɔ {zone} lɛ eba shi bianɛ. Kwɛmɔ gbɛjegbɛi ni nu eyi nɔ lɛ jogbaŋŋ. Amaniɛbɔɔ ni atsĩ naa yɛ app lɛ mli.` |
+| ga *(draft)* | `AMA NU AFƆ HE TSAKEMƆ: Nu afɔ he oshara ni yɔɔ {zone} lɛ eba shi bianɛ. Kwɛmɔ gbɛjegbɛi ni nu eyi nɔ lɛ jogbaŋŋ. Amaniɛbɔɔ ni atsĩ naa yɛ app lɛ mli.` |
 
 ### 4.4 Air advisory (`kind: air`)
 
@@ -84,7 +84,7 @@ These need approval on the review screen ([design brief §8](design-brief.md#8-a
 |---|---|
 | en | `AMA AIR ADVISORY: Air in {zone} is unhealthy (PM2.5 {value}). Limit time outdoors, do not burn waste, wear a mask if you can.` |
 | tw *(draft)* | `AMA MFRAMA HO KOKOBƆ: Mframa a ɛwɔ {zone} nye mma apɔmuden (PM2.5 {value}). Ntena abɔnten nkyɛ, nhyew nwura, fa mask hyɛ sɛ wobetumi a.` |
-| ga *(draft)* | `AMA KƆYƆ HE GBƆMƆ: Kɔɔyɔɔ ni yɔɔ {zone} lɛ nɔ lɛ ehiii (PM2.5 {value}). Tsɔɔmɔ be ni okɛbaatsu nii yɛ kpo nɔ lɛ, kaashã jwɛi, wo mask kɛji obaanyɛ.` |
+| ga *(draft)* | `AMA KƆƆYƆƆ HE GBƆMƆ: Kɔɔyɔɔ ni yɔɔ {zone} lɛ nɔ lɛ ehiii (PM2.5 {value}). Tsɔɔmɔ be ni okɛbaatsu nii yɛ kpo nɔ lɛ, kaashã jwɛi, wo mask kɛji obaanyɛ.` |
 
 ### 4.5 Air all clear (new)
 
@@ -92,7 +92,7 @@ These need approval on the review screen ([design brief §8](design-brief.md#8-a
 |---|---|
 | en | `AMA AIR UPDATE: Air in {zone} is better now. Please keep from burning waste. Report burning in the app.` |
 | tw *(draft)* | `AMA MFRAMA NSƐM: Mframa a ɛwɔ {zone} ayɛ yie seesei. Yɛsrɛ wo, nhyew nwura. Bɔ nwura hyew ho amanneɛ wɔ app no so.` |
-| ga *(draft)* | `AMA KƆƆ SHIHILƐI: Kɔɔyɔɔ ni yɔɔ {zone} lɛ hi fe tsutsu lɛ. Ofainɛ, kaaashã jwɛi. Abɔ jwɛi mli latsaa he amaniɛ yɛ app lɛ nɔ.` |
+| ga *(draft)* | `AMA KƆƆYƆƆ HE TSAKEMƆ: Kɔɔyɔɔ ni yɔɔ {zone} lɛ hi fe tsutsu lɛ. Ofainɛ, kaashã jwɛi. Abɔ jwɛi mli latsaa he amaniɛ yɛ app lɛ nɔ.` |
 
 ## 5. Collector tasks (app, SMS backup)
 
@@ -141,14 +141,14 @@ Please use the same word for each term in every template.
 
 | English | Twi (draft) | Ga |
 |---|---|---|
-| Flood | nsuyiri | Nu afua |
-| Drain / gutter | nsukwan | Tsɔ |
-| Alert / warning | kokobɔ | Hɛlemɔ |
-| Watch / be careful | hwɛ yie | Kwɛmɔ / kwɛmɔ ohe jogbaŋŋ |
-| Update / news | nsɛm | Tsakemɔ |
-| Air | mframa | Kɔɔyɔŋ |
-| Waste / rubbish | nwura | Jwɛɛ |
-| Burn | hyew | Shaaŋ |
-| Report (noun) | amanneɛbɔ | Nókó he sane |
-| Task / work | adwuma | Nifeemɔ |
-| Risk / danger | asiane | Oshra |
+| Flood | nsuyiri | nu afɔ |
+| Drain / gutter | nsukwan | tsɔ |
+| Alert / warning | kokobɔ | gbɔmɔ |
+| Watch / be careful | hwɛ yie | kwɛmɔ / kwɛmɔ ohe jogbaŋŋ |
+| Update / news | nsɛm | tsakemɔ |
+| Air | mframa | kɔɔyɔɔ |
+| Waste / rubbish | nwura | jwɛi |
+| Burn | hyew | shã |
+| Report (noun) | amanneɛbɔ | amaniɛbɔɔ |
+| Task / work | adwuma | nitsumɔ |
+| Risk / danger | asiane | oshara |
